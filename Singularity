@@ -26,20 +26,15 @@ From: ubuntu:16.04
     ###################
     ## JAVA 
     ###################
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get install -y oracle-java8-installer && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/oracle-jdk8-installer
-    apt-get -y autoremove
+    apt install default-jre default-jdk
+    which java
     
     ###################
     ## NEXTFLOW 
     ###################
 
     export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-    which java
+
     mkdir /data && cd /data
     curl -s https://get.nextflow.io | bash 
     mv /data/nextflow /usr/bin/.
