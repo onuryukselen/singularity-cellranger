@@ -33,7 +33,6 @@ From: ubuntu:16.04
     apt-get install -y oracle-java8-installer && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk8-installer
-
     apt-get -y autoremove
     
     ###################
@@ -41,6 +40,7 @@ From: ubuntu:16.04
     ###################
 
     export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+    which java
     mkdir /data && cd /data
     curl -s https://get.nextflow.io | bash 
     mv /data/nextflow /usr/bin/.
