@@ -72,7 +72,7 @@ From: ubuntu:16.04
     ## git clone https://github.com/onuryukselen/singularity /tmp/singularity
     mkdir -p /tmp/singularity/programs
     cd ${TMP}
-    git clone https://git.geniohub.com/software/bcl2fastq2-v2.17.1.14.tar.zip/.git
+    wget https://galaxyweb.umassmed.edu/pub/software/bcl2fastq2-v2.17.1.14.tar.zip
     ## wget ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/Software/bcl2fastq/bcl2fastq2-v2.17.1.14.tar.zip
     unzip bcl2fastq2-v2.17.1.14.tar.zip
     tar -xvzf bcl2fastq2-v2.17.1.14.tar.gz
@@ -115,7 +115,7 @@ From: ubuntu:16.04
     #################
 
     cd /usr/bin
-    git clone https://git.geniohub.com/software/cellranger-3.0.2.tar.gz/.git
+    wget https://galaxyweb.umassmed.edu/pub/software/cellranger-3.0.2.tar.gz
     tar -xzvf cellranger-3.0.2.tar.gz
 
 
