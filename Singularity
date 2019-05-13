@@ -26,15 +26,24 @@ From: ubuntu:16.04
     ###################
     ## JAVA 
     ###################
-    apt install default-jre default-jdk
+    apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean;
+
+    # Fix certificate issues
+    apt-get update && \
+    apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f;
     which java
     
     ###################
     ## NEXTFLOW 
     ###################
 
-    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+which java
     mkdir /data && cd /data
     curl -s https://get.nextflow.io | bash 
     mv /data/nextflow /usr/bin/.
