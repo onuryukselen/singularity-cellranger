@@ -18,7 +18,7 @@ From: ubuntu:16.04
     python-pip git libxml2-dev software-properties-common wget tree vim sed \
     subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo
     export LC_ALL=C
-
+    
     ###################
     ## JAVA 
     ###################
