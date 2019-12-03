@@ -7,7 +7,7 @@ From: ubuntu:16.04
     Version v1.0
 
 %environment
-    PATH=$PATH:/bin:/sbin:/usr/local/bin/dolphin-bin:/usr/bin/bcl2fastq2-v2.17.1.14/bin:/usr/local/bin/dolphin-bin/tophat-2.0.14.Linux_x86_64:/usr/local/bin/dolphin-bin/kraken:/usr/local/bin/dolphin-bin/samtools-1.2:/usr/bin/cellranger-3.0.2
+    PATH=$PATH:/bin:/sbin:/usr/local/bin/dolphin-bin:/usr/bin/bcl2fastq2-v2.17.1.14/bin:/usr/local/bin/dolphin-bin/tophat-2.0.14.Linux_x86_64:/usr/local/bin/dolphin-bin/kraken:/usr/local/bin/dolphin-bin/samtools-1.2:/usr/bin/cellranger-3.0.2:/usr/bin/cellranger-atac-1.2.0
     export PATH
 
 %post
@@ -121,5 +121,12 @@ From: ubuntu:16.04
     cd /usr/bin
     wget https://galaxyweb.umassmed.edu/pub/software/cellranger-3.0.2.tar.gz
     tar -xzvf cellranger-3.0.2.tar.gz
+
+    ######################
+    ## Cell Ranger-ATAC ##
+    ######################
+
+   wget https://galaxyweb.umassmed.edu/pub/software/cellranger-atac-1.2.0.tar.gz
+   tar -xzvf cellranger-atac-1.2.0.tar.gz
 
 
