@@ -14,7 +14,7 @@ From: ubuntu:16.04
     apt-get update 
     apt-get -y upgrade
     apt-get dist-upgrade
-    apt-get -y install liblmza unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
+    apt-get -y install  unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
     python-pip git libxml2-dev software-properties-common wget tree vim sed \
     subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo
  
