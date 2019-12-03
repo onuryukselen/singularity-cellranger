@@ -14,12 +14,12 @@ From: ubuntu:16.04
     apt-get update 
     apt-get -y upgrade
     apt-get dist-upgrade
-    apt-get -y install unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
+    apt-get -y install liblmza unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
     python-pip git libxml2-dev software-properties-common wget tree vim sed \
     subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo
  
     pip install --upgrade pip==9.0.3
-    pip install pysam
+    pip install pysam==0.15.2
     pip install numpy scipy biopython
     export LC_ALL=C
     
