@@ -115,7 +115,7 @@ which java
     make install
     
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
-    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown', 'RColorBrewer', 'Cairo'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     
     #X11 display fix
     Xvfb :0 -ac -screen 0 1960x2000x24 &
