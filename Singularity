@@ -115,7 +115,7 @@ which java
     make install
     
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
-    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     
     #################
     ## Cell Ranger ##
