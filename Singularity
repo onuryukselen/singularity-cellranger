@@ -15,7 +15,7 @@ From: ubuntu:16.04
     apt-get -y upgrade
     apt-get dist-upgrade
     apt-get -y install  unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
-    python-pip git libxml2-dev software-properties-common wget tree vim sed \
+    python-pip git libxml2-dev software-properties-common wget tree vim sed xvfb xauth xfonts-base \
     subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo pandoc
  
     pip install --upgrade pip==9.0.3
@@ -117,6 +117,9 @@ which java
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
     R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     
+    #X11 display fix
+    Xvfb :0 -ac -screen 0 1960x2000x24 &
+
     #################
     ## Cell Ranger ##
     #################
