@@ -7,8 +7,9 @@ From: ubuntu:16.04
     Version v1.0
 
 %environment
-    PATH=$PATH:/bin:/sbin:/usr/local/bin/dolphin-bin:/usr/bin/bcl2fastq2-v2.17.1.14/bin:/usr/local/bin/dolphin-bin/tophat-2.0.14.Linux_x86_64:/usr/local/bin/dolphin-bin/kraken:/usr/local/bin/dolphin-bin/samtools-1.2:/usr/bin/cellranger-3.0.2:/usr/bin/cellranger-atac-1.2.0
+    PATH=$PATH:/bin:/sbin:/usr/bin/bcl2fastq2-v2.17.1.14/bin:/usr/bin/cellranger-3.0.2:/usr/bin/cellranger-atac-1.2.0
     export PATH
+    export LC_ALL=C
 
 %post
     apt-get update 
@@ -16,55 +17,14 @@ From: ubuntu:16.04
     apt-get dist-upgrade
     apt-get -y install  unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
     python-pip git libxml2-dev software-properties-common wget tree vim sed xvfb xauth xfonts-base \
-    subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo pandoc
+    subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo 
  
     pip install --upgrade pip==9.0.3
     pip install pysam==0.15.2
     pip install numpy scipy biopython
-    export LC_ALL=C
-    
-    ###################
-    ## JAVA 
-    ###################
-    apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
-    apt-get install -y ant && \
-    apt-get clean;
-
-    # Fix certificate issues
-    apt-get update && \
-    apt-get install ca-certificates-java && \
-    apt-get clean && \
-    update-ca-certificates -f;
-    which java
-    
-    ###################
-    ## NEXTFLOW 
-    ###################
-
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-which java
-    mkdir /data && cd /data
-    curl -s https://get.nextflow.io | bash 
-    mv /data/nextflow /usr/bin/.
-    mkdir -p /project /nl /share /.nextflow
-    
-    #################
-    ## Dolphin-bin ##
-    #################
-    export GITUSER=UMMS-Biocore
-
-    git clone https://github.com/${GITUSER}/dolphin-bin /usr/local/bin/dolphin-bin
-
-    pip install -U boto
     pip install --upgrade pip    
-    pip install RSeQC
     pip install multiqc
 
-    make -C /usr/local/bin/dolphin-bin/RSEM-1.2.29
-    
-    ##kraken
-    chmod 777 /usr/local/bin/dolphin-bin/kraken/*
     #################
     ## BCL2FASTQ v2.17.1.14
     #################
@@ -104,7 +64,7 @@ which java
     cd /tmp/R-3.5.1
     apt-get update
     apt-get install -y libblas3 libblas-dev liblapack-dev liblapack3 ghostscript  libicu52 \
-    libgmp10 libgmp-dev fort77 aptitude libpcre3-dev liblzma-dev libmariadb-client-lgpl-dev
+    libgmp10 libgmp-dev fort77 aptitude libpcre3-dev liblzma-dev libmariadb-client-lgpl-dev pandoc
     aptitude install -y xorg-dev libreadline-dev
     apt-get install -y bioperl
     apt-get update 
@@ -115,7 +75,10 @@ which java
     make install
     
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
-    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown', 'RColorBrewer', 'Cairo'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "install.packages(c('Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "install.packages(c('RColorBrewer', 'Cairo'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    
     
     #X11 display fix
     Xvfb :0 -ac -screen 0 1960x2000x24 &
