@@ -76,6 +76,7 @@ From: ubuntu:16.04
     
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
     R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
+    R --slave -e "BiocManager::install(c('multtest'))"
     R --slave -e "install.packages(c('Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     R --slave -e "install.packages(c('RColorBrewer', 'Cairo'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     
