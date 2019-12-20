@@ -15,9 +15,9 @@ From: ubuntu:16.04
     apt-get update 
     apt-get -y upgrade
     apt-get dist-upgrade
-    apt-get -y install  unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
-    python-pip git libxml2-dev software-properties-common wget tree vim sed \
-    subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo 
+    apt-get -y install unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev  liblzma-dev \
+    python-pip git libxml2-dev software-properties-common wget tree vim sed make libncurses5-dev libncursesw5-dev\
+    subversion g++ gcc gfortran libcurl4-openssl-dev curl zlib1g-dev build-essential libffi-dev  python-lzo libxml-libxml-perl 
  
     pip install --upgrade pip==9.0.3
     pip install pysam==0.15.2
@@ -55,33 +55,31 @@ From: ubuntu:16.04
     #################
     ## R ##
     #################
-    NPROCS=`awk '/^processor/ {s+=1}; END{print s}' /proc/cpuinfo`
-    cd /tmp 
-    wget http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu52_52.1-3ubuntu0.8_amd64.deb
-    dpkg -i libicu52_52.1-3ubuntu0.8_amd64.deb
-    wget https://cran.rstudio.com/src/base/R-3/R-3.5.1.tar.gz
-    tar xvf R-3.5.1.tar.gz
-    cd /tmp/R-3.5.1
     apt-get update
-    apt-get install -y libblas3 libblas-dev liblapack-dev liblapack3 ghostscript  libicu52 \
+    apt-get install -y libblas3 libblas-dev liblapack-dev liblapack3 ghostscript \
     libgmp10 libgmp-dev fort77 aptitude libpcre3-dev liblzma-dev libmariadb-client-lgpl-dev pandoc libhdf5-dev \
-    libx11-dev libxt-dev qpdf libpng12-dev libjpeg62 xvfb xauth xfonts-base xorg libx11-dev libglu1-mesa-dev libfreetype6-dev
+    libx11-dev libxt-dev qpdf  xvfb xauth xfonts-base xorg libx11-dev libglu1-mesa-dev libfreetype6-dev \
+    libx11-6 libxss1 libxt6 libxext6 libsm6 libice6 xdg-utils libbz2-dev libcairo2-dev libcurl4-openssl-dev libpango1.0-dev \
+    libjpeg-dev libicu-dev  libpcre3-dev libpng-dev libreadline-dev libtiff5-dev liblzma-dev  libx11-dev libxt-dev tcl8.6-dev \
+    texinfo tk8.6-dev texlive-extra-utils texlive-fonts-recommended texlive-fonts-extra texlive-latex-recommended x11proto-core-dev \
+    zlib1g-dev  fonts-texgyre libblas-dev libbz2-1.0  libopenblas-dev libpangocairo-1.0-0 libpcre3 libpng16-16 \
+    libtiff5 liblzma5 zlib1g
     aptitude install -y xorg-dev libreadline-dev libcurl4-openssl-dev
+    
+    NPROCS=`awk '/^processor/ {s+=1}; END{print s}' /proc/cpuinfo` && \
+    cd /tmp && wget http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu52_52.1-3ubuntu0.8_amd64.deb && \
+    dpkg -i libicu52_52.1-3ubuntu0.8_amd64.deb && wget https://cran.rstudio.com/src/base/R-3/R-3.5.1.tar.gz && \
+    tar xvf R-3.5.1.tar.gz && cd /tmp/R-3.5.1 && ./configure --enable-memory-profiling  --with-readline  --with-blas --with-tcltk  --with-recommended-packages --with-libpng --with-libtiff --with-jpeglib --enable-R-static-lib --with-blas --with-lapack --enable-R-shlib=yes && \
+    make -j${NPROCS} && make install
     
     apt-get install -y bioperl
     apt-get update 
-  
-    ./configure --enable-R-static-lib --with-blas --with-lapack --enable-R-shlib=yes 
-    echo "Will use make with $NPROCS cores."
-    make -j${NPROCS}
-    make install
     
     R --slave -e "source('https://bioconductor.org/biocLite.R'); biocLite()"
     R --slave -e "install.packages(c('devtools', 'gplots', 'R.utils'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     R --slave -e "BiocManager::install(c('multtest'))"
     R --slave -e "install.packages(c('Seurat', 'rmarkdown'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
     R --slave -e "install.packages(c('RColorBrewer', 'Cairo'), dependencies = TRUE, repos='https://cloud.r-project.org', Ncpus=${NPROCS})"
-    
     
     #X11 display fix
     Xvfb :0 -ac -screen 0 1960x2000x24 &
